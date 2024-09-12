@@ -40,8 +40,9 @@ function ImageBlock(block) {
 }
 
 let renderbody = html`
+	.header -- 100m Feed
+	.empty-space
 	.container
-		.header -- 100m Feed
 		each of ${_ => channel.contents} as ${block}
 `
 

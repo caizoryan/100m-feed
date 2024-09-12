@@ -1,13 +1,47 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-family: "Departure";
+}
+
+@font-face {
+	font-family: 'Departure';
+	src: url("./fonts/dep.otf") format("opentype");
+}
+
+:root {
+	--primary-color: #F00613;
+	--bg: #eee
+}
+
 .container {
+	font-family: "Departure";
 	width: 100vw;
 	display: grid;
+	mix-blend-mode: lighten;
 }
+
+.empty-space {
+	width: 100%;
+	height: 5em;
+}
+
+.header {
+	position: fixed;
+	color: blue;
+	font-size: 5em;
+	width: 100%;
+	text-align: center;
+
+}
+
 
 .block {
 	width: 40%;
+	box-shadow: 0 0 20px 5px rgba(0, 80, 180, .2);
 	border: 1px dotted black;
 	padding: 10px;
-	margin: 10px;
+	margin: 10px auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -16,4 +50,23 @@
 
 .block img {
 	width: 100%;
+}
+
+/* For large screens  */
+@media (min-width: 1500px) {
+	.container {
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 1em;
+
+	}
+
+	.block {
+		width: 90%;
+	}
+}
+
+@media (max-width: 800px) {
+	.block {
+		width: 80%;
+	}
 }
