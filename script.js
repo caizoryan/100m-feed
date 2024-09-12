@@ -8,6 +8,14 @@ let channel = mut({ contents: [] })
 
 
 function easteregg() {
+
+	var r = document.querySelector(':root');
+	setInterval(() => {
+		let random_color = colors[Math.floor(Math.random() * colors.length)]
+		r.style.setProperty('--font-color', random_color.c1)
+		r.style.setProperty('--bg', random_color.c2)
+
+	}, 1000)
 	window.addEventListener("mousemove", (e) => {
 		let x = e.clientX
 		let y = e.clientY
@@ -26,6 +34,7 @@ function easteregg() {
 		document.querySelectorAll(".even").forEach((el) => {
 			el.style.transform = `translate(-${x / 10}px, ${y_offset}px)`
 		})
+
 	})
 }
 
@@ -93,3 +102,58 @@ async function get_channel(slug) {
 			return data;
 		});
 };
+
+let colors = [
+	{
+		c2: "#0c252c",
+		c1: "#f2f2f2",
+	},
+	{
+		c2: "#111",
+		c1: "#eee",
+	},
+	{
+		c1: "#22437e",
+		c2: "#d8c9c0",
+	},
+	{
+		c1: "#311c3d",
+		c2: "#f2e3f8",
+	},
+	{
+		c1: "#9ec7a9",
+		c2: "#ee6a92",
+	},
+	{
+		c1: "#646569",
+		c2: "#95aa89",
+	},
+	{
+		c1: "#d1e58c",
+		c2: "#df7946",
+	},
+	{
+		c1: "#82b5b8",
+		c2: "#d95441",
+	},
+	{
+		c1: "#0c252c",
+		c2: "#f2f2f2",
+	},
+	{
+		c1: "#42532f",
+		c2: "#d8c9c0",
+	},
+	{
+		c1: "#e4797c",
+		c2: "#d8c9c0",
+	},
+	{
+		c1: "#d8c9c0",
+		c2: "#f6f859",
+	},
+	{
+		c1: "#22437e",
+		c2: "#d8c9c0",
+	},
+]
