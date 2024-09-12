@@ -43,11 +43,11 @@ function ImageBlock(block) {
 	let side = parseInt(block.position) % 2 === 0 ?
 		"even" : "odd"
 	return html`
-	a [
-			href = ${"https://are.na/block/" + block.id} 
-			target = _blank ]
 		div [class = ${"block " + side}]
-			img [src=${img_src}]`
+			a [
+					href = ${"https://are.na/block/" + block.id} 
+					target = _blank ]
+				img [src=${img_src}]`
 }
 
 function thumbnail(block) {
