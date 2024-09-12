@@ -9,11 +9,7 @@ let channel = mut({ contents: [] })
 
 function easteregg() {
 	var r = document.querySelector(':root');
-	let blendmodes = ["difference", "exclusion", "hue", "saturation", "color", "luminosity"]
-
-	setInterval(() => {
-		document.querySelector(".container").style.mixBlendMode = blendmodes[Math.floor(Math.random() * blendmodes.length)]
-	}, 3000)
+	let blendmodes = ["difference", "exclusion", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion"]
 
 	setInterval(() => {
 		let random_color = colors[Math.floor(Math.random() * colors.length)]
