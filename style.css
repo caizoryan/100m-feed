@@ -40,6 +40,7 @@ span.grey {
 	font-family: "Departure";
 	width: 100vw;
 	display: grid;
+	mix-blend-mode: normal;
 }
 
 .empty-space {

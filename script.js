@@ -12,8 +12,13 @@ function easteregg() {
 	let blendmodes = ["difference", "exclusion", "hue", "saturation", "color", "luminosity"]
 
 	setInterval(() => {
+		document.querySelector(".container").style.mixBlendMode = blendmodes[Math.floor(Math.random() * blendmodes.length)]
+	}, 3000)
+
+	setInterval(() => {
 		let random_color = colors[Math.floor(Math.random() * colors.length)]
 		document.querySelector(".container").style.mixBlendMode = blendmodes[Math.floor(Math.random() * blendmodes.length)]
+
 		r.style.setProperty('--font-color', random_color.c1)
 		r.style.setProperty('--bg', random_color.c2)
 
