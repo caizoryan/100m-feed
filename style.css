@@ -1,0 +1,19 @@
+.container {
+	width: 100vw;
+	display: grid;
+}
+
+.block {
+	width: 40%;
+	border: 1px dotted black;
+	padding: 10px;
+	margin: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+}
+
+.block img {
+	width: 100%;
+}
