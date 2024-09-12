@@ -24,6 +24,11 @@ button:hover {
 	background-color: var(--primary-color);
 }
 
+span.grey {
+	color: grey;
+	opacity: .1;
+}
+
 .container {
 	font-family: "Departure";
 	width: 100vw;
@@ -39,7 +44,7 @@ button:hover {
 .header {
 	position: fixed;
 	color: blue;
-	font-size: 5em;
+	font-size: 6em;
 	width: 100%;
 	text-align: center;
 
@@ -78,7 +83,7 @@ button:hover {
 
 
 /* For large screens  */
-@media (min-width: 1800px) {
+@media (min-width: 2000px) {
 	.container {
 		grid-template-columns: repeat(2, 1fr);
 		grid-gap: 1em;
@@ -93,5 +98,11 @@ button:hover {
 @media (max-width: 800px) {
 	.block {
 		width: 80%;
+	}
+}
+
+@media (max-width: 600px) {
+	.header {
+		font-size: 3em;
 	}
 }

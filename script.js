@@ -56,7 +56,7 @@ function thumbnail(block) {
 }
 
 let renderbody = html`
-	.header -- 100m Feed
+	.header -- 100m Feed   
 	.empty-space
 	.container
 		each of ${_ => channel.contents} as ${block}
