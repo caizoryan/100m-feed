@@ -20,6 +20,8 @@ async function get_channel(slug) {
 		})
 		.then((data) => {
 			console.log(data);
+			// sort desc
+			data.contents = data.contents.sort((a, b) => b.position - a.position)
 			return data;
 		});
 };
@@ -35,6 +37,9 @@ function block(b) {
 function ImageBlock(block) {
 	let img_src = block.image?.display?.url || ""
 	return html`
+	a [
+			href = ${"https://are.na/block/" + block.id} 
+			target = _blank ]
 		.block
 			img [src=${img_src}]`
 }
