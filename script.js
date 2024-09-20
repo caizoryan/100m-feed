@@ -14,22 +14,31 @@ var r = document.querySelector(':root');
 function setGridGap(num) {
 	r.style.setProperty('--grid-gap', num + 'em');
 	localStorage.setItem("grid-gap", num)
+	grid_gap = num
 }
 
 function setContainerWidth(num) {
 	r.style.setProperty('--container-width', num + 'vw');
 	localStorage.setItem("container-width", num)
+	container_width = num
 }
 
 function setGridItems(num) {
 	r.style.setProperty('--grid-items', num);
 	localStorage.setItem("grid-items", num)
+	grid_items = num
 }
 
 let init_localstorage = () => {
 	if (container_width) setContainerWidth(container_width)
+	else setContainerWidth(60)
+
 	if (grid_gap) setGridGap(grid_gap)
+	else setGridGap(1)
+
 	if (grid_items) setGridItems(grid_items)
+	else setGridItems(1)
+
 }
 
 init_localstorage()
@@ -153,13 +162,13 @@ let renderbody = () => html`
 		button.close-button [onclick = ${toggle_menu}] -- [x]
 		.menu-slider
 			span -- Container Width: 
-			input [type=range min = 50 max = 100 value = ${container_width} oninput = ${e => setContainerWidth(e?.target.value)}]
+			input [type=range min=50 max=100 value=${container_width} oninput = ${e => setContainerWidth(e?.target.value)}]
 		.menu-slider
 			span -- Grid Items:
-			input [type=range min = 1 max = 10 value = ${grid_items} oninput = ${e => setGridItems(e?.target.value)}]
+			input [type=range min=1 max=10 value=${grid_items} oninput = ${e => setGridItems(e?.target.value)}]
 		.menu-slider
 			span -- Grid Gap:
-			input [type=range min = 0 max = 10 value = ${grid_gap} step = 0.1 oninput = ${e => setGridGap(e?.target.value)}]
+			input [type=range min=0 max=10 value=${grid_gap} step = 0.1 oninput = ${e => setGridGap(e?.target.value)}]
 
 	.container
 		each of ${_ => channel.contents} as ${block}
