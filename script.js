@@ -6,6 +6,7 @@ let host = "https://api.are.na/v2/";
 
 let slug = "100m-feed"
 export let channel = mut({ contents: [] })
+let [container_width, grid_gap, grid_items] = [localStorage.getItem("container-width"), localStorage.getItem("grid-gap"), localStorage.getItem("grid-items")]
 
 
 var r = document.querySelector(':root');
@@ -26,8 +27,6 @@ function setGridItems(num) {
 }
 
 let init_localstorage = () => {
-	let [container_width, grid_gap, grid_items] = [localStorage.getItem("container-width"), localStorage.getItem("grid-gap"), localStorage.getItem("grid-items")]
-
 	if (container_width) setContainerWidth(container_width)
 	if (grid_gap) setGridGap(grid_gap)
 	if (grid_items) setGridItems(grid_items)
@@ -154,13 +153,13 @@ let renderbody = html`
 		button.close-button [onclick = ${toggle_menu}] -- [x]
 		.menu-slider
 			span -- Container Width: 
-			input [type=range min = 50 max = 100 value = 100 oninput = ${e => setContainerWidth(e.target.value)}]
+			input [type=range min = 50 max = 100 value = ${container_width} oninput = ${e => setContainerWidth(e.target.value)}]
 		.menu-slider
 			span -- Grid Items:
-			input [type=range min = 1 max = 10 value = 1 oninput = ${e => setGridItems(e.target.value)}]
+			input [type=range min = 1 max = 10 value = ${grid_items} oninput = ${e => setGridItems(e.target.value)}]
 		.menu-slider
 			span -- Grid Gap:
-			input [type=range min = 0 max = 10 value = 1 step = 0.1 oninput = ${e => setGridGap(e.target.value)}]
+			input [type=range min = 0 max = 10 value = ${grid_gap} step = 0.1 oninput = ${e => setGridGap(e.target.value)}]
 
 	.container
 		each of ${_ => channel.contents} as ${block}
