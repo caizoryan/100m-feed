@@ -1,3 +1,4 @@
+import { MD } from "./md.js";
 import { For } from "./solid_monke/mini-solid.js";
 import { html, render, h, sig, mut } from "./solid_monke/solid_monke.js"
 
@@ -57,7 +58,7 @@ function TextBlock(block) {
 		"even" : "odd"
 	return html`
 		div [class = ${"block " + side}]
-			p.text -- ${block.content}
+			p.text -- ${MD(block.content)}
 		`
 }
 
