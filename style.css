@@ -204,13 +204,15 @@ li {
 /* 	} */
 /* } */
 
-@media (max-width: 800px) {
-	.block {
-		width: 80%;
-	}
-}
 
 @media (max-width: 600px) {
+	.container {
+		width: 90vw;
+		grid-template-columns: 1fr;
+		grid-gap: 1em;
+	}
+
+
 	.header {
 		font-size: 3em;
 	}
