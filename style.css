@@ -119,8 +119,8 @@ li {
 
 .block .text {
 	width: 100%;
-	min-height: 300px;
 	padding: 1em;
+	max-height: 300px;
 }
 
 .menu-button {
@@ -218,6 +218,6 @@ li {
 	}
 
 	.menu-button {
-		display: none;
+		display: none
 	}
 }
