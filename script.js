@@ -5,7 +5,7 @@ import { html, render, h, sig, mut } from "./solid_monke/solid_monke.js"
 let host = "https://api.are.na/v2/";
 
 let slug = "100m-feed"
-let channel = mut({ contents: [] })
+export let channel = mut({ contents: [] })
 
 
 function easteregg() {
@@ -44,7 +44,7 @@ function easteregg() {
 }
 
 // API functions
-function block(b) {
+export function block(b) {
 	if (b.class === "Image") return ImageBlock(b);
 	if (b.class === "Text") return TextBlock(b);
 	if (b.class === "Link") return LinkBlock(b);
@@ -102,7 +102,7 @@ function ImageBlock(block) {
 	let side = parseInt(block.position) % 2 === 0 ?
 		"even" : "odd"
 	return html`
-		div [class = ${"block " + side}]
+		div [class = ${"block " + side} id = ${"feed-block-" + block.id}]
 			a [
 					href = ${"https://are.na/block/" + block.id} 
 					target = _blank ]

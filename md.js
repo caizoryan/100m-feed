@@ -1,6 +1,7 @@
 import { h, render } from "./solid_monke/solid_monke.js";
 import markdownIt from "./markdown-it/markdown-it.js";
 import makrdownItMark from "./markdown-it/markdown-it-mark.js";
+import { channel, block as Block } from "./script.js";
 
 let md = new markdownIt("commonmark").use(makrdownItMark);
 
@@ -20,34 +21,60 @@ const extract_block_id = (link) => {
   return link.split("/").pop();
 };
 
-function wait_and_show_block(id, x, y, timeout) { }
 
-// function show_block(id, x, y, timeout) {
-//   let side = x > window.innerWidth / 2 ? "left" : "right";
-//
-//   // fetch(host + "/api/blocks/" + id)
-//   //   .then((res) => res.json())
-//   //   .then((block_data) => {
-//   //     let block = document.createElement("div");
-//   //     block.id = "id-" + block_data.id;
-//   //     block.style.position = "fixed";
-//   //     block.style.top = Math.random() * 50 + 100 + "px";
-//   //     block.style[side] = Math.random() * 50 + 100 + "px";
-//   //     block.style.width = "40vw";
-//   //     block.style.height = "40vw";
-//   //     block.onmouseleave = () => {
-//   //       block.setAttribute("hover", "false");
-//   //       wait_and_hide_block(block_data.id, timeout);
-//   //     };
-//   //
-//   //     block.onmouseenter = () => {
-//   //       block.setAttribute("hover", "true");
-//   //     };
-//   //
-//   //     document.body.appendChild(block);
-//   //     render(Block(block_data), block);
-//   //   });
-// }
+function render_block(block_data, x, y, timeout) {
+  let side = x > window.innerWidth / 2 ? "left" : "right";
+
+  let block = document.createElement("div");
+  block.id = "id-" + block_data.id;
+  block.href = "#feed-block-" + block_data.id;
+  block.style.position = "fixed";
+  block.style.top = Math.random() * 50 + 100 + "px";
+  block.style[side] = Math.random() * 50 + 100 + "px";
+  block.style.width = "40vw";
+  block.style.height = "40vw";
+  block.onmouseleave = () => {
+    block.setAttribute("hover", "false");
+    block.setAttribute("href", "#feed-block-" + block_data.id);
+    wait_and_hide_block(block_data.id, timeout);
+  };
+
+  block.onclick = () => {
+    window.scrollTo(0, document.getElementById("feed-block-" + block_data.id).offsetTop);
+  }
+
+  block.onmouseenter = () => {
+    block.setAttribute("hover", "true");
+  };
+
+  document.body.appendChild(block);
+  render(() => Block(block_data), block);
+  setTimeout(() => {
+    block.childNodes.forEach((el) => {
+      el.style.pointerEvents = "none";
+    }, 100)
+  })
+}
+function show_block(id, x, y, timeout) {
+  // check also in channel.contents
+  let found = false;
+  channel.contents.forEach((block) => {
+    console.log(block.id, id);
+    if (block.id == id) {
+      console.log("found");
+      render_block(block, x, y, timeout);
+      found = true;
+    }
+  })
+
+  if (found) return
+
+  fetch(host + "/api/blocks/" + id)
+    .then((res) => res.json())
+    .then((block_data) => {
+      render_block(block_data, x, y, timeout);
+    });
+}
 
 function wait_and_hide_block(id, timeout) {
   if (timeout) clearTimeout(timeout);
@@ -58,7 +85,7 @@ function wait_and_hide_block(id, timeout) {
     } else {
       wait_and_hide_block(id);
     }
-  }, 1500);
+  }, 500);
 }
 
 function eat(tree) {
@@ -71,19 +98,20 @@ function eat(tree) {
     if (item.nesting === 1) {
       let at = attrs(item);
 
-      // if (at.href && link_is_block(at.href)) {
-      //   let timeout;
-      //   at.href = host + "/blocks/" + extract_block_id(at.href);
-      //   at.onmouseenter = (e) => {
-      //     let [x, y] = [e.clientX, e.clientY];
-      //     console.log(e.clientX, e.clientY);
-      //     show_block(extract_block_id(at.href), x, y, timeout);
-      //   };
-      //
-      //   at.onmouseleave = () => {
-      //     wait_and_hide_block(extract_block_id(at.href), timeout);
-      //   };
-      // }
+      if (at.href && link_is_block(at.href)) {
+        let timeout;
+        // at.href = "https://are.na/blocks/" + extract_block_id(at.href);
+        // at.href = "https://are.na/blocks/" + extract_block_id(at.href);
+        at.onmouseenter = (e) => {
+          let [x, y] = [e.clientX, e.clientY];
+          console.log(e.clientX, e.clientY);
+          show_block(extract_block_id(at.href), x, y, timeout);
+        };
+
+        at.onmouseleave = () => {
+          wait_and_hide_block(extract_block_id(at.href), timeout);
+        };
+      }
 
       ret.push(h(item.tag, at, eat(tree)));
     }
@@ -125,9 +153,7 @@ let stupid_fix = (content) => {
 
 export const MD = (content) => {
   content = stupid_fix(content);
-  // console.log(content);
   let tree = safe_parse(content);
-  // if (tree) tree.forEach((e) => console.log(e));
 
   let body;
 
