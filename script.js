@@ -153,13 +153,13 @@ let renderbody = () => html`
 		button.close-button [onclick = ${toggle_menu}] -- [x]
 		.menu-slider
 			span -- Container Width: 
-			input [type=range min = 50 max = 100 value = ${container_width} oninput = ${e => setContainerWidth(e.target.value)}]
+			input [type=range min = 50 max = 100 value = ${container_width} oninput = ${e => setContainerWidth(e?.target.value)}]
 		.menu-slider
 			span -- Grid Items:
-			input [type=range min = 1 max = 10 value = ${grid_items} oninput = ${e => setGridItems(e.target.value)}]
+			input [type=range min = 1 max = 10 value = ${grid_items} oninput = ${e => setGridItems(e?.target.value)}]
 		.menu-slider
 			span -- Grid Gap:
-			input [type=range min = 0 max = 10 value = ${grid_gap} step = 0.1 oninput = ${e => setGridGap(e.target.value)}]
+			input [type=range min = 0 max = 10 value = ${grid_gap} step = 0.1 oninput = ${e => setGridGap(e?.target.value)}]
 
 	.container
 		each of ${_ => channel.contents} as ${block}
