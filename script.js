@@ -51,6 +51,39 @@ function block(b) {
 	if (b.class === "Media") return MediaBlock(b);
 }
 
+function TextBlock(block) {
+	console.log(block.content)
+	let side = parseInt(block.position) % 2 === 0 ?
+		"even" : "odd"
+	return html`
+		div [class = ${"block " + side}]
+			p.text -- ${block.content}
+		`
+}
+
+function MediaBlock(block) {
+	let img_src = block.image?.display?.url || ""
+	let side = parseInt(block.position) % 2 === 0 ?
+		"even" : "odd"
+	return html`
+		div [class = ${"block " + side}]
+			a [
+					href = ${"https://are.na/block/" + block.id} 
+					target = _blank ]
+				img [src=${img_src}]`
+}
+function LinkBlock(block) {
+	let img_src = block.image?.display?.url || ""
+	let side = parseInt(block.position) % 2 === 0 ?
+		"even" : "odd"
+	return html`
+		div [class = ${"block " + side}]
+			a [
+					href = ${"https://are.na/block/" + block.id} 
+					target = _blank ]
+				img [src=${img_src}]`
+}
+
 function AttachmentBlock(block) {
 	let img_src = block.image?.display?.url || ""
 	let side = parseInt(block.position) % 2 === 0 ?
