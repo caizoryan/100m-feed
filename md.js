@@ -40,7 +40,12 @@ function render_block(block_data, x, y, timeout, offline = true) {
   };
 
   block.onclick = () => {
-    window.scrollTo(0, document.getElementById("feed-block-" + block_data.id).offsetTop);
+    let e = {
+      top: document.getElementById("feed-block-" + block_data.id).offsetTop,
+      left: 0,
+      behavior: "smooth"
+    }
+    window.scrollTo(e);
   }
 
   block.onmouseenter = () => {
