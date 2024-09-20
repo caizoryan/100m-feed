@@ -11,7 +11,7 @@ let attrs = (item) => {
   return Object.fromEntries(attrs);
 };
 
-let host = "http://" + window.location.host;
+let host = "http://api.are.na/v2/";;
 
 const link_is_block = (link) => {
   return link.includes("are.na/block");
@@ -22,7 +22,7 @@ const extract_block_id = (link) => {
 };
 
 
-function render_block(block_data, x, y, timeout) {
+function render_block(block_data, x, y, timeout, offline = true) {
   let side = x > window.innerWidth / 2 ? "left" : "right";
 
   let block = document.createElement("div");
@@ -49,10 +49,8 @@ function render_block(block_data, x, y, timeout) {
 
   document.body.appendChild(block);
   render(() => Block(block_data), block);
-  setTimeout(() => {
-    block.childNodes.forEach((el) => {
-      el.style.pointerEvents = "none";
-    }, 100)
+  if (offline) setTimeout(() => {
+    block.childNodes.forEach((el) => el.style.pointerEvents = "none", 100)
   })
 }
 function show_block(id, x, y, timeout) {
@@ -69,10 +67,10 @@ function show_block(id, x, y, timeout) {
 
   if (found) return
 
-  fetch(host + "/api/blocks/" + id)
+  fetch(host + "/blocks/" + id)
     .then((res) => res.json())
     .then((block_data) => {
-      render_block(block_data, x, y, timeout);
+      render_block(block_data, x, y, timeout, false);
     });
 }
 
