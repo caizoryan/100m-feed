@@ -24,6 +24,13 @@ body {
 	background-color: var(--bg);
 }
 
+blockquote {
+	margin: .5em;
+	margin-left: 1.8em;
+	background-color: rgba(0, 0, 0, .1);
+	padding: .5em;
+}
+
 button {
 	all: unset;
 	/* border: 1px solid black; */
