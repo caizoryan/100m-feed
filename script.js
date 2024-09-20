@@ -8,6 +8,33 @@ let slug = "100m-feed"
 export let channel = mut({ contents: [] })
 
 
+var r = document.querySelector(':root');
+
+function setGridGap(num) {
+	r.style.setProperty('--grid-gap', num + 'em');
+	localStorage.setItem("grid-gap", num)
+}
+
+function setContainerWidth(num) {
+	r.style.setProperty('--container-width', num + 'vw');
+	localStorage.setItem("container-width", num)
+}
+
+function setGridItems(num) {
+	r.style.setProperty('--grid-items', num);
+	localStorage.setItem("grid-items", num)
+}
+
+let init_localstorage = () => {
+	let [container_width, grid_gap, grid_items] = [localStorage.getItem("container-width"), localStorage.getItem("grid-gap"), localStorage.getItem("grid-items")]
+
+	if (container_width) setContainerWidth(container_width)
+	if (grid_gap) setGridGap(grid_gap)
+	if (grid_items) setGridItems(grid_items)
+}
+
+init_localstorage()
+
 function easteregg() {
 	var r = document.querySelector(':root');
 	let blendmodes = ["difference", "exclusion", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion"]
@@ -114,15 +141,33 @@ function thumbnail(block) {
 	return html` img.x-small [src${img_src}] `
 }
 
+function toggle_menu() {
+	document.querySelector(".menu").classList.toggle("open")
+}
+
 let renderbody = html`
-	.header -- 100m Feed   
+	span.menu-button [onclick = ${toggle_menu}] -- [?]
+	.header -- 100m Feed
 	.empty-space
+
+	.menu
+		button.close-button [onclick = ${toggle_menu}] -- [x]
+		.menu-slider
+			span -- Container Width: 
+			input [type=range min = 50 max = 100 value = 100 oninput = ${e => setContainerWidth(e.target.value)}]
+		.menu-slider
+			span -- Grid Items:
+			input [type=range min = 1 max = 10 value = 1 oninput = ${e => setGridItems(e.target.value)}]
+		.menu-slider
+			span -- Grid Gap:
+			input [type=range min = 0 max = 10 value = 1 step = 0.1 oninput = ${e => setGridGap(e.target.value)}]
+
 	.container
 		each of ${_ => channel.contents} as ${block}
 
 	.thumbnail-train
 		each of ${_ => channel.contents} as ${thumbnail}
-		button [onclick = ${easteregg}] -- ((( x )))
+		button [onclick = ${easteregg}] -- ((( ? )))
 
 `
 
