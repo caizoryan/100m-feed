@@ -8,14 +8,18 @@ let channel = mut({ contents: [] })
 
 
 function easteregg() {
-
 	var r = document.querySelector(':root');
+	let blendmodes = ["difference", "exclusion", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion"]
+
 	setInterval(() => {
 		let random_color = colors[Math.floor(Math.random() * colors.length)]
+		document.querySelector(".container").style.mixBlendMode = blendmodes[Math.floor(Math.random() * blendmodes.length)]
+
 		r.style.setProperty('--font-color', random_color.c1)
 		r.style.setProperty('--bg', random_color.c2)
 
 	}, 1000)
+
 	window.addEventListener("mousemove", (e) => {
 		let x = e.clientX
 		let y = e.clientY
