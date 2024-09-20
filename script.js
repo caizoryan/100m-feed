@@ -144,7 +144,7 @@ function toggle_menu() {
 	document.querySelector(".menu").classList.toggle("open")
 }
 
-let renderbody = html`
+let renderbody = () => html`
 	span.menu-button [onclick = ${toggle_menu}] -- [?]
 	.header -- 100m Feed
 	.empty-space
