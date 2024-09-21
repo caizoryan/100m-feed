@@ -91,7 +91,7 @@ li {
 
 
 .block {
-	max-height: 90%;
+	max-height: 80vh;
 	width: 100%;
 	overflow-y: scroll;
 	box-shadow: 0 0 10px 2.5px rgba(0, 80, 180, .1);

@@ -3,7 +3,7 @@ import markdownIt from "./markdown-it/markdown-it.js";
 import makrdownItMark from "./markdown-it/markdown-it-mark.js";
 import { channel, block as Block } from "./script.js";
 
-let md = new markdownIt("commonmark").use(makrdownItMark);
+let md = new markdownIt().use(makrdownItMark);
 
 let attrs = (item) => {
   let attrs = item.attrs;
@@ -157,6 +157,7 @@ let stupid_fix = (content) => {
 export const MD = (content) => {
   content = stupid_fix(content);
   let tree = safe_parse(content);
+  console.log([...tree]);
 
   let body;
 
